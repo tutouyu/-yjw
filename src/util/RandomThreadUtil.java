@@ -5,20 +5,23 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Random;
-
+/**
+ * 并发插入大量数据
+ * @author 余嘉威
+ * @version -version
+ */
 public class RandomThreadUtil implements Runnable{
     /**
      * 用来插入10000条测试随机数据
-     * @param
      * @exception SQLException
      */
    public void randomUtil() throws SQLException {
        Random random=new Random();
        DbConnectionUtil dbcu=new DbConnectionUtil();
        Connection con=dbcu.getConnection();
-       String sql1="INSERT INTO bicycle VALUES(?,?,?,?,?)";
-       String sql2="INSERT INTO operation(rent,back,bicycle,user) VALUES(?,?,?,?)";
-       String sql3="INSERT INTO user VALUES(?,?,?,?,?,?)";
+       String sql1="REPLACE INTO bicycle VALUES(?,?,?,?,?)";
+       String sql2="REPLACE INTO operation(rent,back,bicycle,user) VALUES(?,?,?,?)";
+       String sql3="REPLACE INTO user VALUES(?,?,?,?,?,?)";
        PreparedStatement pstmt1 = con.prepareStatement(sql1);
        PreparedStatement pstmt2 = con.prepareStatement(sql2);
        PreparedStatement pstmt3 = con.prepareStatement(sql3);
@@ -50,9 +53,9 @@ public class RandomThreadUtil implements Runnable{
                "梁丘","左丘","东门","西门","南宫","第五","公仪","公乘","太史","仲长","叔孙","屈突","尔朱","东乡","相里","胡母","司城","张廖","雍门",
                "毋丘","贺兰","綦毋","屋庐","独孤","南郭","北宫","王孙"};
        int statusgp[]={0,1};
-       for(int i=0;i<10000;i++){
+       for(int i=0;i<5000;i++){
            String name=Surname[random.nextInt(400)];
-           String num=Integer.toString(i);
+           String num=Integer.toString(random.nextInt(100000));
            int credit=random.nextInt(70)+30;
            int admin=0;
            String account ="";
@@ -93,6 +96,9 @@ public class RandomThreadUtil implements Runnable{
        pstmt2.executeBatch();
        pstmt3.executeBatch();
    }
+    /**
+     * 用区位码获取名
+     */
     public static String getChinese() {
         String str = null;
         int highPos, lowPos;
@@ -100,7 +106,6 @@ public class RandomThreadUtil implements Runnable{
         highPos = (176 + Math.abs(random.nextInt(71)));//区码，0xA0打头，从第16区开始，即0xB0=11*16=176,16~55一级汉字，56~87二级汉字
         random=new Random();
         lowPos = 161 + Math.abs(random.nextInt(94));//位码，0xA0打头，范围第1~94列
-
         byte[] bArr = new byte[2];
         bArr[0] = (new Integer(highPos)).byteValue();
         bArr[1] = (new Integer(lowPos)).byteValue();

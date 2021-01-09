@@ -1,20 +1,36 @@
 package util;
 
+import com.company.Main;
+
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
+
 /**
  * 数据库连接
  * @author 余嘉威
  * @version -version
  */
 public class DbConnectionUtil {
-    private static final String DBRIVER="org.gjt.mm.mysql.Driver"; //定义MySQL数据库驱动程序
-    private static final String DBURL="jdbc:mysql://localhost:3306/bicycle?useSSL=false"; //定义MySQL数据库连接地址
-    private static final String DBUSER="root"; //MySQL数据库连接用户名
-    private static final String PASSWORD="yjw19991218"; //MySQL数据库连接密码
     private Connection conn=null; //保存连接对象
+
     public DbConnectionUtil() {//构造方法连接数据库
+        InputStream inputStream = Main.class.getClassLoader()
+                .getResourceAsStream("dbconnection.properties");
+        Properties properties = new Properties();
+        try {
+            properties.load(inputStream);
+        } catch (
+                IOException e) {
+            e.printStackTrace();
+        }
+        String DBRIVER=properties.getProperty("DBRIVER"); //定义MySQL数据库驱动程序
+        String DBURL=properties.getProperty("DBURL"); //定义MySQL数据库连接地址
+        String DBUSER=properties.getProperty("DBUSER"); //MySQL数据库连接用户名
+        String PASSWORD=properties.getProperty("PASSWORD"); //MySQL数据库连接密码
         try {
             Class.forName(DBRIVER);
             this.conn= DriverManager.getConnection(DBURL,DBUSER,PASSWORD);

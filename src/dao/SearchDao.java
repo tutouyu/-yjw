@@ -74,7 +74,7 @@ public class SearchDao {
      */
     public Bicycle[] bySearch() throws SQLException {
         int i=0;
-        Bicycle[] bicycle= new Bicycle[10000];
+        Bicycle[] bicycle= new Bicycle[20000];
         DbConnectionUtil dbcu=new DbConnectionUtil();
         Connection con= dbcu.getConnection();
         Statement stmt= con.createStatement();
@@ -121,7 +121,7 @@ public class SearchDao {
      */
      public Bicycle[] shSearch(String keywords) throws SQLException {
          int i=0;
-         Bicycle[] bicycle= new Bicycle[10000];
+         Bicycle[] bicycle= new Bicycle[20000];
          DbConnectionUtil dbcu=new DbConnectionUtil();
          Connection con= dbcu.getConnection();
          Statement stmt= con.createStatement();
@@ -143,7 +143,7 @@ public class SearchDao {
      */
     public Bicycle[] shUserSearch(String keywords) throws SQLException {
         int i=0;
-        Bicycle[] bicycle= new Bicycle[10000];
+        Bicycle[] bicycle= new Bicycle[20000];
         DbConnectionUtil dbcu=new DbConnectionUtil();
         Connection con= dbcu.getConnection();
         Statement stmt= con.createStatement();

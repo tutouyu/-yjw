@@ -117,7 +117,15 @@ public class Adiministrator {
             public void actionPerformed(ActionEvent e) {
                 AddDao ad=new AddDao();
                 ad.byadd(t1.getText(),t2.getText(),t3.getText());
-                model.addRow(new Object[]{t1.getText(),t2.getText(),t3.getText()});
+                for(int i=model.getRowCount();i>0;i--){
+                    model.removeRow(i-1);
+                }
+               SearchDao sd=new SearchDao();
+                try {
+                    sd.bySearch(model);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
             }
         });
         back.addActionListener(new ActionListener() {
@@ -196,6 +204,8 @@ public class Adiministrator {
                         else
                             break;
                     }
+                    AddDao ad=new AddDao();
+                    ad.xmlAdd(bicycle);
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
                 }

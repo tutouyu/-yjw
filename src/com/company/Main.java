@@ -11,8 +11,10 @@ import view.Adiministrator;
 import view.Login;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.sql.*;
+import java.util.Properties;
 import java.util.Random;
 /**
  * 测试类
@@ -21,8 +23,9 @@ import java.util.Random;
  */
 public class Main {
     public static void main(String[] args) throws SQLException, IOException {
-        Login login=new Login();
-        login.login();
+            Login login=new Login();
+            login.login();
     }
+
 }
 

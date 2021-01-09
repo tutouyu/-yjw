@@ -1,10 +1,18 @@
 package dao;
 
+import model.Bicycle;
+import org.dom4j.Document;
+import org.dom4j.DocumentHelper;
+import org.dom4j.Element;
+import org.dom4j.io.XMLWriter;
 import util.DbConnectionUtil;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+
 /**
  * 数据库增加操作
  * @author 余嘉威
@@ -21,7 +29,7 @@ public class AddDao {
         Connection con=dbconn.getConnection();
         try {
             Statement stmt=con.createStatement();
-            stmt.execute("INSERT INTO user(name,num,credit,administrator,account,password) VALUES ('" + name + "','" + num + "',100,0,'" + account + "','" + password + "')");
+            stmt.execute("REPLACE INTO user(name,num,credit,administrator,account,password) VALUES ('" + name + "','" + num + "',100,0,'" + account + "','" + password + "')");
             con.close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -37,7 +45,7 @@ public class AddDao {
         Connection con=dbcu.getConnection();
         try {
             Statement stmt=con.createStatement();
-            stmt.execute("INSERT INTO bicycle(num,address,history,status1,status2) VALUES ('" + num + "','" + address + "','" + history + "',0,0)");
+            stmt.execute("REPLACE INTO bicycle(num,address,history,status1,status2) VALUES ('" + num + "','" + address + "','" + history + "',0,0)");
             con.close();
             stmt.close();
         } catch (SQLException throwables) {
@@ -54,7 +62,7 @@ public class AddDao {
         Connection con=dbcu.getConnection();
         try {
             Statement stmt=con.createStatement();
-            stmt.execute("INSERT INTO bicycle(num,address,history,status1,status2) VALUES ('" + num + "','" + address + "','" + history + "'," + status1 + "," + status2 + ")");
+            stmt.execute("REPLACE INTO bicycle(num,address,history,status1,status2) VALUES ('" + num + "','" + address + "','" + history + "'," + status1 + "," + status2 + ")");
             con.close();
             stmt.close();
         } catch (SQLException throwables) {
@@ -74,4 +82,25 @@ public class AddDao {
             stmt.close();
             con.close();
     }
+    /**
+     * 存储excel文件数据到xml文件
+     * @param bicycle
+     * @return Bicycle
+     */
+    public void xmlAdd(Bicycle[] bicycle) throws IOException {
+        Document doc = DocumentHelper.createDocument();
+        org.dom4j.Element root = doc.addElement("Bicycles");
+        for(int i=0;i<bicycle.length;i++) {
+            if(bicycle[i]!=null){
+            Element bicyclexml = root.addElement("bicycle");
+            bicyclexml.addElement("num").setText(bicycle[i].num);
+            bicyclexml.addElement("address").setText(bicycle[i].address);
+            bicyclexml.addElement("history").setText(bicycle[i].history);}
+            else
+                break;
+        }
+        XMLWriter writer = new XMLWriter(new FileOutputStream("source/excel.xml"));
+        writer.write(doc);
+    }
+
 }

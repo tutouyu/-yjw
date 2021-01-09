@@ -8,6 +8,7 @@ public class SortUtil {
     /**
      * 快排倒序
      * @param bicycle,low,high
+     * @return Bicycle
      */
     public Bicycle[] sortUtil(Bicycle[] bicycle,int low,int high){
         if (low < high) {

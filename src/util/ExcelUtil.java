@@ -17,6 +17,10 @@ import java.io.*;
 public class ExcelUtil {
     public ExcelUtil() throws IOException {
 }
+    /**
+     * 导入excel
+     * @return Bicycle[]
+     */
      public Bicycle[] excelUtilIn() throws IOException {
         File file=null;
          Bicycle[] bicycle=new Bicycle[100];
@@ -44,6 +48,10 @@ public class ExcelUtil {
          }
          return bicycle;
      }
+    /**
+     * excel导出
+     * @param rownum,model
+     */
      public void excelUtilOut(int rownum, DefaultTableModel model) throws IOException {
          File file=new File("source/test1.xlsx");
          Workbook workbook=new XSSFWorkbook();
@@ -55,10 +63,11 @@ public class ExcelUtil {
                  cell.setCellValue((String)model.getValueAt(i,j));
              }
          }
-         //单元格设置内容
-         FileOutputStream fos=new FileOutputStream(file);//创建输出流对象
-         workbook.write(fos);//将内容写入到指定的excel文档
+         FileOutputStream fos=new FileOutputStream(file);
+         workbook.write(fos);
          fos.close();
+     }
+     public void xmlAdd(){
 
      }
 }
