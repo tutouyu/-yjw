@@ -1,5 +1,6 @@
 package util;
 
+import javax.swing.*;
 import java.io.UnsupportedEncodingException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -95,6 +96,7 @@ public class RandomThreadUtil implements Runnable{
        pstmt1.executeBatch();
        pstmt2.executeBatch();
        pstmt3.executeBatch();
+       JOptionPane.showMessageDialog(null, "插入完成");
    }
     /**
      * 用区位码获取名

@@ -18,7 +18,7 @@ public class DbConnectionUtil {
     private Connection conn=null; //保存连接对象
 
     public DbConnectionUtil() {//构造方法连接数据库
-        InputStream inputStream = Main.class.getClassLoader()
+        InputStream inputStream = DbConnectionUtil.class.getClassLoader()
                 .getResourceAsStream("dbconnection.properties");
         Properties properties = new Properties();
         try {

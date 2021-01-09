@@ -38,7 +38,7 @@ public class BuUtil {
      * @exception IOException
      */
     public Bicycle[] buUtil() throws IOException {
-        Bicycle[]bicycle=new Bicycle[100];
+        Bicycle[]bicycle=new Bicycle[100000];
         String filename="D:\\课设.text";
         String str;
         int i=0;
